@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{E4726FAA-4251-4341-AA50-43F500B2AD16}</ProjectGuid>
+    <RootNamespace>ComputerVision</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <UseOfMfc>
+    </UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>C:\opencv341\build\bin\Debug;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>
+      </SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\jsayres\Source\Repos\Robot_CV\Robot_CV\icimagingcontrol;C:\opencv341\sources\modules\imgproc\include;C:\opencv341\sources\modules\calib3d\include;C:\opencv341\sources\modules\features2d\include;C:\opencv341\sources\modules\highgui\include;C:\opencv341\sources\modules\videoio\include;C:\opencv341\sources\modules\imgcodecs\include;C:\opencv341\sources\modules\video\include;C:\opencv341\sources\modules\photo\include;C:\opencv341\sources\modules\imgproc\include;C:\opencv341\sources\modules\flann\include;C:\opencv341\sources\modules\core\include;C:\opencv341\sources\modules\videostab\include;C:\opencv341\sources\modules\superres\include;C:\opencv341\sources\modules\stitching\include;C:\opencv341\sources\modules\shape\include;C:\opencv341\sources\modules\objdetect\include;C:\opencv341\sources\modules\ml\include;C:\opencv341\sources\modules\dnn\include;C:\opencv341\build\3rdparty\ippicv\ippicv_win\include;C:\opencv341\build\3rdparty\ippicv\ippiw_win\include;C:\opencv341\build;C:\opencv341\tbb\sources\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_VARIADIC_MAX=10;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DisableSpecificWarnings>4127;4251;4324;4275;4512;4589</DisableSpecificWarnings>
+      <AdditionalUsingDirectories>
+      </AdditionalUsingDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>$(ProjectDir)lib\x86\TIS_UDSHL11d_x86.lib;C:\opencv341\build\lib\$(Configuration)\opencv_imgcodecs341d.lib;C:\opencv341\build\lib\$(Configuration)\opencv_highgui341d.lib;C:\opencv341\build\lib\$(Configuration)\opencv_core341d.lib;C:\opencv341\build\lib\$(Configuration)\opencv_video341d.lib;C:\opencv341\build\lib\$(Configuration)\opencv_videoio341d.lib;C:\opencv341\build\lib\$(Configuration)\opencv_features2d341d.lib;C:\opencv341\build\lib\$(Configuration)\opencv_calib3d341d.lib;C:\opencv341\build\lib\$(Configuration)\opencv_imgproc341d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib\x86;$(Platform)\$(Configuration)\;C:\opencv341\build\bin\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)tis\include\;$(ProjectDir)tis\Common\;C:\opencv341\sources\modules\imgproc\include;C:\opencv341\sources\modules\calib3d\include;C:\opencv341\sources\modules\features2d\include;C:\opencv341\sources\modules\highgui\include;C:\opencv341\sources\modules\videoio\include;C:\opencv341\sources\modules\imgcodecs\include;C:\opencv341\sources\modules\video\include;C:\opencv341\sources\modules\photo\include;C:\opencv341\sources\modules\imgproc\include;C:\opencv341\sources\modules\flann\include;C:\opencv341\sources\modules\core\include;C:\opencv341\sources\modules\videostab\include;C:\opencv341\sources\modules\superres\include;C:\opencv341\sources\modules\stitching\include;C:\opencv341\sources\modules\shape\include;C:\opencv341\sources\modules\objdetect\include;C:\opencv341\sources\modules\ml\include;C:\opencv341\sources\modules\dnn\include;C:\opencv341\build\3rdparty\ippicv\ippicv_win\include;C:\opencv341\build\3rdparty\ippicv\ippiw_win\include;C:\opencv341\build;C:\opencv341\tbb\sources\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\jsayres\Source\Repos\Robot_CV\Robot_CV\icimagingcontrol;C:\opencv341\sources\modules\imgproc\include;C:\opencv341\sources\modules\calib3d\include;C:\opencv341\sources\modules\features2d\include;C:\opencv341\sources\modules\highgui\include;C:\opencv341\sources\modules\videoio\include;C:\opencv341\sources\modules\imgcodecs\include;C:\opencv341\sources\modules\video\include;C:\opencv341\sources\modules\photo\include;C:\opencv341\sources\modules\imgproc\include;C:\opencv341\sources\modules\flann\include;C:\opencv341\sources\modules\core\include;C:\opencv341\sources\modules\videostab\include;C:\opencv341\sources\modules\superres\include;C:\opencv341\sources\modules\stitching\include;C:\opencv341\sources\modules\shape\include;C:\opencv341\sources\modules\objdetect\include;C:\opencv341\sources\modules\ml\include;C:\opencv341\sources\modules\dnn\include;C:\opencv341\build\3rdparty\ippicv\ippicv_win\include;C:\opencv341\build\3rdparty\ippicv\ippiw_win\include;C:\opencv341\build;C:\opencv341\tbb\sources\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;NDEBUG;_VARIADIC_MAX=10;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>$(ProjectDir)lib\x86\TIS_UDSHL11_x86.lib;C:\opencv341\build\lib\$(Configuration)\opencv_imgcodecs341.lib ;C:\opencv341\build\lib\$(Configuration)\opencv_highgui341.lib;C:\opencv341\build\lib\$(Configuration)\opencv_core341.lib;C:\opencv341\build\lib\$(Configuration)\opencv_video341.lib;C:\opencv341\build\lib\$(Configuration)\opencv_videoio341.lib;C:\opencv341\build\lib\$(Configuration)\opencv_features2d341.lib;C:\opencv341\build\lib\$(Configuration)\opencv_calib3d341.lib;C:\opencv341\build\lib\$(Configuration)\opencv_imgproc341.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib\x86;$(Platform)\$(Configuration)\;$(ProjectDir)tis\$(Platform)\$(Configuration)\;C:\opencv341\build\bin\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)tis\include\;$(ProjectDir)tis\Common\;C:\opencv341\sources\modules\imgproc\include;C:\opencv341\sources\modules\calib3d\include;C:\opencv341\sources\modules\features2d\include;C:\opencv341\sources\modules\highgui\include;C:\opencv341\sources\modules\videoio\include;C:\opencv341\sources\modules\imgcodecs\include;C:\opencv341\sources\modules\video\include;C:\opencv341\sources\modules\photo\include;C:\opencv341\sources\modules\imgproc\include;C:\opencv341\sources\modules\flann\include;C:\opencv341\sources\modules\core\include;C:\opencv341\sources\modules\videostab\include;C:\opencv341\sources\modules\superres\include;C:\opencv341\sources\modules\stitching\include;C:\opencv341\sources\modules\shape\include;C:\opencv341\sources\modules\objdetect\include;C:\opencv341\sources\modules\ml\include;C:\opencv341\sources\modules\dnn\include;C:\opencv341\build\3rdparty\ippicv\ippicv_win\include;C:\opencv341\build\3rdparty\ippicv\ippiw_win\include;C:\opencv341\build;C:\opencv341\tbb\sources\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="CameraCalibration.cpp" />
+    <ClCompile Include="CameraDriver.cpp" />
+    <ClCompile Include="ImagingSource.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="PoseEstimation.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CameraCalibration.h" />
+    <ClInclude Include="CameraDriver.h" />
+    <ClInclude Include="ImagingSource.h" />
+    <ClInclude Include="PoseEstimation.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="configuration\default.xml" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
