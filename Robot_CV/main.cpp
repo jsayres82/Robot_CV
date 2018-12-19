@@ -16,8 +16,8 @@ int main(int argc, const char** argv)
 	// Image Buffer:
 	cv::Mat		img;
 	// Flags:
-	bool	print = atoi(argv[1]);
-	bool	show_img = atoi(argv[2]);
+	bool	print = true; // atoi(argv[1]);
+	bool	show_img = true;  // atoi(argv[2]);
 
 
 	// target_found = 1 if target pattern is found, otherwise target_found = -1:

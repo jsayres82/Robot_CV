@@ -71,7 +71,7 @@ bool readCameraMatrix(const string& filename,
 // Initiate camera capture and video-frame grabbing:
 void GetCamera()
 {
-	capture.open(2);
+	capture.open(1);
 
 }
 
