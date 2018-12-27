@@ -125,12 +125,12 @@ static cv::Mat R_C_Matrix = cv::Mat_<double>(4, 4);
 			ConvertIntoNonHomogeneous(rmat);
 			// Update the Rotation Vector (rvec) after the change above:
 			Rodrigues(rmat, rvec);
-			if (print)
-			{
-				cout << "rvec = " << rvec << endl;
-				cout << "rmat = " << rmat << endl;
-				cout << "tvec = " << tvec << endl;
-			}
+			//if (print)
+			//{
+			//	cout << "rvec = " << rvec << endl;
+			//	cout << "rmat = " << rmat << endl;
+			//	cout << "tvec = " << tvec << endl;
+			//}
 			// Combine Rotation cv::Matrix (rmat) and Translation Vector (tvec) into the overall transformation cv::Matrix
 			// in reference to Camera coordinate system (transfmatCam, size 3-by-4 cv::Matrix), that is [rmat|tvec]:
 			hconcat(rmat, tvec, transfmatCam);
@@ -138,10 +138,11 @@ static cv::Mat R_C_Matrix = cv::Mat_<double>(4, 4);
 			// to Max's gripper coordinate system):
 			cv::Mat temp = (cv::Mat_<double>(1, 4) << 0.0, 0.0, 0.0, 1.0);
 			vconcat(transfmatCam, temp, transfmatCamHomogeneous);
+			cv::Mat Rz = RotationMatrix('z', PI);
 			cv::Mat Rx = RotationMatrix('x', -(PI / 2));
 			// Camera Offset from Max's calibtation tool End-Effector coordinate system's point of origin:
 			//cv::Mat T1 = TranslationMatrix(CAMERA_X_TRANSLATION, CAMERA_Y_TRANSLATION, CAMERA_Z_TRANSLATION);
-			cv::Mat T1 = TranslationMatrix(18, 33.02, 18.5);
+			cv::Mat T1 = TranslationMatrix(-18, -5, 18.5);
 			transfmatSBHomogeneous = T1 * Rx *  transfmatCamHomogeneous;
 			//transfmatSBHomogeneous = transfmatCamHomogeneous;// T1 * transfmatCamHomogeneous;
 			cv::Mat finalMatrix = robotMat * transfmatSBHomogeneous;
@@ -156,7 +157,7 @@ static cv::Mat R_C_Matrix = cv::Mat_<double>(4, 4);
 
 			sprintf(text, "%Position = %f %f %f", realPoint2.x, realPoint2.y, realPoint2.z);
 			putText(undist_in_img, text, cv::Point(5, 35), cv::FONT_HERSHEY_PLAIN, 1.0, CV_RGB(0, 255, 255));
-			cout << "transfmatSB = " << transfmatSB << endl;
+			//cout << "transfmatSB = " << transfmatSB << endl;
 			// Final transfmat re-shaping to satisfy requirements of manipulator program:
 			transpose(transfmatSB, transfvec12);
 			transfvec12 = transfvec12.reshape(12, 1);
@@ -178,11 +179,11 @@ static cv::Mat R_C_Matrix = cv::Mat_<double>(4, 4);
 				10.0e+20);
 		}
 
-		if ((found) && (print))
+		/*if ((found) && (print))
 		{
 			cout << "transfvec12 = " << transfvec12 << endl;
 			cout << endl;
-		}
+		}*/
 
 		return found;
 	}
@@ -207,8 +208,8 @@ static cv::Mat R_C_Matrix = cv::Mat_<double>(4, 4);
 		cv::Mat rmat;
 		Rodrigues(rvec, rmat);
 		//cout<<"rmat = "<<rmat<<endl;
-		cout << "rvec = " << rvec << endl;
-		cout << "tvec = " << tvec << endl;
+		//cout << "rvec = " << rvec << endl;
+		//cout << "tvec = " << tvec << endl;
 
 		//ConvertIntoHomogeneous(rmat);
 		//rmat = rmat * RotationMatrix('x', -(PI/2));
@@ -276,11 +277,6 @@ static cv::Mat R_C_Matrix = cv::Mat_<double>(4, 4);
 		CalcBoardCornerPositions(corner_object_points);
 
 		img = GetImage();
-		//img = mImagingSource.getFrame();
-		//if (argc==4)
-		//{
-		//img = cv::imread(argv[3], CV_LOAD_IMAGE_COLOR);
-		//}
 
 		UndistortImage(img, my_camera_matrix, my_dist_coeffs);
 
@@ -318,5 +314,5 @@ static cv::Mat R_C_Matrix = cv::Mat_<double>(4, 4);
 		cv::hconcat(thetaRotation, transMatrix, R_C_Matrix);
 		cv::vconcat(R_C_Matrix, (cv::Mat)(cv::Mat_<double>(1, 4) << 0.0, 0.0, 0.0, 1.0), R_C_Matrix);
 
-		cout << R_C_Matrix << endl;
+		//cout << R_C_Matrix << endl;
 	}

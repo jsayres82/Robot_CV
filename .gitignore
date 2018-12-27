@@ -328,3 +328,6 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+/Robot_CV/configuration/out_camera_data - Copy.xml
+/Robot_CV/configuration/out_camera_data - Copy (3).xml
+/Robot_CV/configuration/out_camera_data - Copy (2).xml

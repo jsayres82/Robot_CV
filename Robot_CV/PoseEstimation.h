@@ -53,8 +53,7 @@ enum MeasurementMode {
 	INCHES,
 };
 
-#define THETAARMLENGTH 1//7.55f * 25.4f;
-
+#define THETAARMLENGTH 177.8f
 #define CAMERA_X_TRANSLATION 18;
 #define CAMERA_Y_TRANSLATION -18.5;
 #define CAMERA_Z_TRANSLATION 33.02;

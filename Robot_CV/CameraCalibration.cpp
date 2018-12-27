@@ -272,7 +272,7 @@
 		}
 
 		fs["CameraSettings"] >> s;
-
+		s.showUndistorsed = false;
 		s.cameraModel = cameraName;
 		s.cameraSerial = serial;
 
@@ -419,7 +419,10 @@
 			}
 
 			if (key == 'u' && mode == CALIBRATED)
-				s.showUndistorsed = !s.showUndistorsed;
+				s.showUndistorsed = true;
+			if (key == 'd' && mode == CALIBRATED)
+				s.showUndistorsed = false;
+
 			if (mode == CAPTURING)
 			{
 				if (key == '\r' || key == '\n')
@@ -430,6 +433,7 @@
 			{
 				mode = CAPTURING;
 				imagePoints.clear();
+				s.showUndistorsed = false;
 			}
 			//! [await_input]
 		}
@@ -466,6 +470,7 @@
 				char c = (char)cv::waitKey();
 				if (c == ESC_KEY || c == 'q' || c == 'Q')
 				{
+					ReleaseCamera();
 					cvDestroyAllWindows();
 					break;
 				}
