@@ -94,11 +94,11 @@ static cv::Mat R_C_Matrix = cv::Mat_<double>(4, 4);
 
 		// Overall Transformation cv::Matrices:
 
-		cv::Mat				transfmatCam;					// Overall Transformation cv::Matrix (3X4) in reference to Camera Coordinate System
-		cv::Mat				transfmatCamHomogeneous;		// Overall Homogeneous Transformation cv::Matrix (4X4) in reference to Camera Coordinate System
-		cv::Mat				transfmatSBHomogeneous;			// Overall Homogeneous Transformation cv::Matrix (4X4) in reference to Max's End-Effector Coordinate System
-		cv::Mat				transfmatSB;					// Overall Transformation cv::Matrix (3X4) in reference to Max's End-Effector Coordinate System
-		cv::Mat				transfmatSB2;					// Overall Transformation cv::Matrix (3X4) in reference to Max's End-Effector Coordinate System
+		cv::Mat				transfmatCamera;					// Overall Transformation cv::Matrix (3X4) in reference to Camera Coordinate System
+		cv::Mat				transfmatCameraHomogeneous;			// Overall Homogeneous Transformation cv::Matrix (4X4) in reference to Camera Coordinate System
+		cv::Mat				transfmatMaxHomogeneous;			// Overall Homogeneous Transformation cv::Matrix (4X4) in reference to Max's End-Effector Coordinate System
+		cv::Mat				transfmatMax;						// Overall Transformation cv::Matrix (3X4) in reference to Max's End-Effector Coordinate System
+		cv::Mat				transfmatMax2;						// Overall Transformation cv::Matrix (3X4) in reference to Max's End-Effector Coordinate System
 
 															// Images:
 		cv::Mat				undist_in_img_gray;
@@ -127,39 +127,44 @@ static cv::Mat R_C_Matrix = cv::Mat_<double>(4, 4);
 			Rodrigues(rmat, rvec);
 			//if (print)
 			//{
-			//	cout << "rvec = " << rvec << endl;
-			//	cout << "rmat = " << rmat << endl;
-			//	cout << "tvec = " << tvec << endl;
+				cout << "rvec = " << rvec << endl;
+				cout << "rmat = " << rmat << endl;
+				cout << "tvec = " << tvec << endl;
 			//}
+				Rodrigues(rvec, rmat);
 			// Combine Rotation cv::Matrix (rmat) and Translation Vector (tvec) into the overall transformation cv::Matrix
 			// in reference to Camera coordinate system (transfmatCam, size 3-by-4 cv::Matrix), that is [rmat|tvec]:
-			hconcat(rmat, tvec, transfmatCam);
+			hconcat(rmat, tvec, transfmatCamera);
 			// Convert transfmatCam into transfmatSB (overall transformation cv::Matrix in reference 
-			// to Max's gripper coordinate system):
+			// to Max's gripper coordinate system):			
 			cv::Mat temp = (cv::Mat_<double>(1, 4) << 0.0, 0.0, 0.0, 1.0);
-			vconcat(transfmatCam, temp, transfmatCamHomogeneous);
-			cv::Mat Rz = RotationMatrix('z', PI);
+			vconcat(transfmatCamera, temp, transfmatCameraHomogeneous);
+			
+			cv::Mat Rz = RotationMatrix('y', PI);
 			cv::Mat Rx = RotationMatrix('x', -(PI / 2));
 			// Camera Offset from Max's calibtation tool End-Effector coordinate system's point of origin:
 			//cv::Mat T1 = TranslationMatrix(CAMERA_X_TRANSLATION, CAMERA_Y_TRANSLATION, CAMERA_Z_TRANSLATION);
-			cv::Mat T1 = TranslationMatrix(-18, -5, 18.5);
-			transfmatSBHomogeneous = T1 * Rx *  transfmatCamHomogeneous;
-			//transfmatSBHomogeneous = transfmatCamHomogeneous;// T1 * transfmatCamHomogeneous;
-			cv::Mat finalMatrix = robotMat * transfmatSBHomogeneous;
 
-			transfmatSB = transfmatSBHomogeneous(cv::Rect(0, 0, 4, 3));
-			transfmatSB2 = finalMatrix(cv::Rect(0, 0, 4, 3));
-			cv::Point3f realPoint(transfmatSB.at<double>(0, 3) / unitConversion, transfmatSB.at<double>(1, 3) / unitConversion, transfmatSB.at<double>(2, 3) / unitConversion); // point in world coordinates
+			cv::Mat T1 = TranslationMatrix(20.0, -5.0, 18.5);
+			cv::Mat T1_v = (cv::Mat_<double>(3, 1) << 18.0, -15.0, 18.5);
+			cv::Mat camTrans;// = Rx * T1;
+			transfmatMaxHomogeneous = -T1 * Rx * transfmatCameraHomogeneous;
+
+			cv::Mat finalMatrix = robotMat * transfmatMaxHomogeneous;
+
+			transfmatMax = transfmatMaxHomogeneous(cv::Rect(0, 0, 4, 3));
+			transfmatMax2 = finalMatrix(cv::Rect(0, 0, 4, 3));
+			cv::Point3f realPoint(transfmatMax.at<double>(0, 3) / unitConversion, transfmatMax.at<double>(1, 3) / unitConversion, transfmatMax.at<double>(2, 3) / unitConversion); // point in world coordinates
 			char text[100];
 			sprintf(text, "%Position = %f %f %f", realPoint.x, realPoint.y, realPoint.z);
 			putText(undist_in_img, text, cv::Point(5, 15), cv::FONT_HERSHEY_PLAIN, 1.0, CV_RGB(0, 255, 255));
-			cv::Point3f realPoint2(transfmatSB2.at<double>(0, 3) / unitConversion, transfmatSB2.at<double>(1, 3) / unitConversion, transfmatSB2.at<double>(2, 3) / unitConversion); // point in world coordinates
+			cv::Point3f realPoint2(transfmatMax2.at<double>(0, 3) / unitConversion, transfmatMax2.at<double>(1, 3) / unitConversion, transfmatMax2.at<double>(2, 3) / unitConversion); // point in world coordinates
 
 			sprintf(text, "%Position = %f %f %f", realPoint2.x, realPoint2.y, realPoint2.z);
 			putText(undist_in_img, text, cv::Point(5, 35), cv::FONT_HERSHEY_PLAIN, 1.0, CV_RGB(0, 255, 255));
 			//cout << "transfmatSB = " << transfmatSB << endl;
 			// Final transfmat re-shaping to satisfy requirements of manipulator program:
-			transpose(transfmatSB, transfvec12);
+			transpose(transfmatMax, transfvec12);
 			transfvec12 = transfvec12.reshape(12, 1);
 		}
 		else		// If NOT found,
@@ -272,7 +277,7 @@ static cv::Mat R_C_Matrix = cv::Mat_<double>(4, 4);
 			unitConversion = 1;
 			break;
 		}
-		LoadCameraParams(GetDevice(), my_camera_matrix, my_dist_coeffs, calibratedImageSize);
+		LoadCameraParams(my_camera_matrix, my_dist_coeffs, calibratedImageSize);
 
 		CalcBoardCornerPositions(corner_object_points);
 
@@ -310,7 +315,7 @@ static cv::Mat R_C_Matrix = cv::Mat_<double>(4, 4);
 		double thetaX = cos(thetaRad) * THETAARMLENGTH;
 		//cv::Mat Rotation = thetaRotation * frameRotation;
 		ConvertIntoNonHomogeneous(thetaRotation);
-		cv::Mat transMatrix = (cv::Mat_<double>(3, 1) << robotPosition.at<double>(0) * 25.4 + thetaX, thetaY, robotPosition.at<double>(2) * 25.4);
+		cv::Mat transMatrix = (cv::Mat_<double>(3, 1) <<  robotPosition.at<double>(0) * 25.4 - thetaX + THETAARMLENGTH, thetaY, robotPosition.at<double>(2) * 25.4);
 		cv::hconcat(thetaRotation, transMatrix, R_C_Matrix);
 		cv::vconcat(R_C_Matrix, (cv::Mat)(cv::Mat_<double>(1, 4) << 0.0, 0.0, 0.0, 1.0), R_C_Matrix);
 

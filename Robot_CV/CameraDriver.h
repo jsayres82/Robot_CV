@@ -28,8 +28,7 @@ const cv::String cameraParamFileName = "configuration/out_camera_data.xml";
 // TCP/IP Port to use: 50058
 
 // Functions and Procedures defined in CameraDriver.cpp:
-string GetDevice();
-void LoadCameraParams(string device, cv::Mat& camera_matrix, cv::Mat& dist_coeffs, cv::Size calibratedImageSize);
+void LoadCameraParams(cv::Mat& camera_matrix, cv::Mat& dist_coeffs, cv::Size calibratedImageSize);
 void GetCamera();
 void GetCamera(int id);
 cv::Mat GetImage();
