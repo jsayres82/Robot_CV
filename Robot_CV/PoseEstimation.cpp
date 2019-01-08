@@ -120,18 +120,19 @@ static cv::Mat R_C_Matrix2 = cv::Mat_<double>(4, 4);
 			solvePnPRansac(corner_object_points, corner_image_points, camera_matrix, dist_coeffs, rvec, tvec);
 			// Compute Rotation cv::Matrix (rmat, size 3-by-3 cv::Matrix) from Rotation Vector (rvec, size 3-by-1 cv::Matrix) using Rodrigues transform
 			// (http://docs.opencv.org/modules/calib3d/doc/camera_calibration_and_3d_reconstruction.html#rodrigues):
+			cout << "rvec = " << rvec * 180 / PI << endl;
 			Rodrigues(rvec, rmat);
 			// Rotate Target Chessboard Coordinate System 180 degrees along x-axis (Roll-direction)
 			// (to align Target Chessboard Coordinate System with Camera Coordinate System):
 			ConvertIntoHomogeneous(rmat);
-			rmat = rmat * RotationMatrix('z', -PI);
+			rmat = rmat * RotationMatrix('z', PI);
 			//rmat = rmat * RotationMatrix('x', PI);
 			ConvertIntoNonHomogeneous(rmat);
 			// Update the Rotation Vector (rvec) after the change above:
 			Rodrigues(rmat, rvec);
 			//if (print)
 			//{
-				cout << "rvec = " << rvec * 180/PI << endl;
+				//cout << "rvec = " << rvec * 180/PI << endl;
 				//cout << "rmat = " << rmat << endl;
 				//cout << "tvec = " << tvec << endl;
 			//}
@@ -144,12 +145,12 @@ static cv::Mat R_C_Matrix2 = cv::Mat_<double>(4, 4);
 			cv::Mat temp = (cv::Mat_<double>(1, 4) << 0.0, 0.0, 0.0, 1.0);
 			vconcat(transfmatCamera, temp, transfmatCameraHomogeneous);
 			
-			cv::Mat Rx = RotationMatrix('x', -(PI / 2));
-			cv::Mat Rz = RotationMatrix('z', (PI / 2));
+			cv::Mat Rx = RotationMatrix('x', (PI / 2));
+			cv::Mat Rz = RotationMatrix('z',  3*(PI / 2));
 			// Camera Offset from Max's calibtation tool End-Effector coordinate system's point of origin:
 			//cv::Mat T1 = TranslationMatrix(CAMERA_X_TRANSLATION, CAMERA_Y_TRANSLATION, CAMERA_Z_TRANSLATION);
 
-			cv::Mat T1 = TranslationMatrix(22, -26, 4.0);
+			cv::Mat T1 = TranslationMatrix(14.5, 16.0, 18);
 			
 			transfmatMaxHomogeneous = Rx * Rz * T1 * transfmatCameraHomogeneous;
 			transfmatMaxHomogeneous = robotMat * transfmatMaxHomogeneous;
@@ -163,8 +164,6 @@ static cv::Mat R_C_Matrix2 = cv::Mat_<double>(4, 4);
 			Rodrigues(rmat2, rvec2);
 			cv::Point3f realPoint2(rvec2.at<double>(0) * 180 / PI, rvec2.at<double>(1) * 180 / PI, rvec2.at<double>(2) * 180 / PI); // point in world coordinates
 
-			sprintf(text, "%Rotation = %f %f %f", realPoint2.x, realPoint2.y, realPoint2.z);
-			putText(undist_in_img, text, cv::Point(5, 35), cv::FONT_HERSHEY_PLAIN, 1.0, CV_RGB(0, 255, 255));
 			//cout << "transfmatSB = " << transfmatSB << endl;
 			// Final transfmat re-shaping to satisfy requirements of manipulator program:
 			transpose(transfmatMax, transfvec12);
@@ -314,11 +313,11 @@ static cv::Mat R_C_Matrix2 = cv::Mat_<double>(4, 4);
 		//cv::Mat frameRotation = RotationMatrix('x', -(PI / 2));
 		double thetaRad = robotPosition.at<double>(1) * PI / 180;
 		cv::Mat thetaRotation = RotationMatrix('z', thetaRad);
-		double thetaY = -sin(thetaRad) * THETAARMLENGTH;
+		double thetaY = sin(thetaRad) * THETAARMLENGTH;
 		double thetaX = cos(thetaRad) * THETAARMLENGTH;
 		//cv::Mat Rotation = thetaRotation * frameRotation;
 		ConvertIntoNonHomogeneous(thetaRotation);
-		cv::Mat transMatrix = (cv::Mat_<double>(3, 1) <<  robotPosition.at<double>(0) * 25.4 - thetaX + THETAARMLENGTH, thetaY, robotPosition.at<double>(2) * 25.4);
+		cv::Mat transMatrix = (cv::Mat_<double>(3, 1) <<  robotPosition.at<double>(0) * 25.4 + thetaX, thetaY, robotPosition.at<double>(2) * 25.4);
 		cv::hconcat(thetaRotation, transMatrix, R_C_Matrix);
 		cv::vconcat(R_C_Matrix, (cv::Mat)(cv::Mat_<double>(1, 4) << 0.0, 0.0, 0.0, 1.0), R_C_Matrix);
 
